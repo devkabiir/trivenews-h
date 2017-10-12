@@ -12,7 +12,6 @@ RUN apk-install \
     python \
     py-pip \
     nodejs \
-    musl-dev \
     git \
     vim
 
@@ -59,6 +58,7 @@ RUN npm install --production \
 
 # Expose the default port.
 EXPOSE 5000
+#EXPOSE 443
 
 # Set the application environment
 ENV PATH /var/lib/hypothesis/bin:$PATH
