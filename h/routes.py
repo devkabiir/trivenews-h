@@ -147,10 +147,10 @@ def includeme(config):
     # Static
     config.add_route('about', '/about/', static=True)
     config.add_route('bioscience', '/bioscience/', static=True)
-    config.add_route('blog', '/blog/', static=True)
+    config.add_route('blog', 'https://trive.news/blog/', static=True)
     config.add_route(
         'chrome-extension',
-        'https://chrome.google.com/webstore/detail/bjfhmglciegochdpefhhlphglcehbmek',
+        'https://trive.news/plugin',
         static=True)
     config.add_route('contact', '/contact/', static=True)
     config.add_route('contribute', '/contribute/', static=True)
@@ -162,7 +162,7 @@ def includeme(config):
     config.add_route(
         'hypothesis-github', 'https://github.com/hypothesis', static=True)
     config.add_route(
-        'hypothesis-twitter', 'https://twitter.com/hypothes_is', static=True)
+        'hypothesis-twitter', 'https://twitter.com/Trive_News', static=True)
     config.add_route('jobs', '/jobs/', static=True)
     config.add_route('press', '/press/', static=True)
     config.add_route('privacy', '/privacy/', static=True)

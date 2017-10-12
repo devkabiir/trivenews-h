@@ -1,6 +1,7 @@
 FROM gliderlabs/alpine:3.4
 MAINTAINER Hypothes.is Project and contributors
 
+
 # Install system build and runtime dependencies.
 RUN apk-install \
     ca-certificates \
