@@ -12,7 +12,9 @@ RUN apk-install \
     python \
     py-pip \
     nodejs \
-    git
+    musl-dev \
+    git \
+    vim
 
 # Create the hypothesis user, group, home directory and package directory.
 RUN addgroup -S hypothesis && adduser -S -G hypothesis -h /var/lib/hypothesis hypothesis
@@ -49,6 +51,8 @@ COPY . .
 RUN [ -d .git ] && chown -R hypothesis:hypothesis .git || :
 
 # Build frontend assets
+#RUN npm rebuild node-sass --force
+#ENV NODE_SASS_PLATFORM alpine 
 RUN npm install --production \
   && NODE_ENV=production node_modules/.bin/gulp build \
   && npm cache clean
