@@ -12,7 +12,8 @@ RUN apk-install \
     python \
     py-pip \
     nodejs \
-    git
+    git \
+    vim
 
 # Create the hypothesis user, group, home directory and package directory.
 RUN addgroup -S hypothesis && adduser -S -G hypothesis -h /var/lib/hypothesis hypothesis
@@ -55,6 +56,7 @@ RUN npm install --production \
 
 # Expose the default port.
 EXPOSE 5000
+#EXPOSE 443
 
 # Set the application environment
 ENV PATH /var/lib/hypothesis/bin:$PATH
