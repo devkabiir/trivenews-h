@@ -14,7 +14,8 @@ RUN apk-install \
     py-pip \
     nodejs \
     git \
-    vim
+    vim \
+    bash
 
 # Create the hypothesis user, group, home directory and package directory.
 RUN addgroup -S hypothesis && adduser -S -G hypothesis -h /var/lib/hypothesis hypothesis
