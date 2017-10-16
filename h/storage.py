@@ -128,7 +128,6 @@ def create_annotation(request, data, group_service):
         raise schemas.ValidationError('group: ' +
                                       _('You may not create annotations '
                                         'in the specified group!'))
-
     annotation = models.Annotation(**data)
     annotation.created = created
     annotation.updated = updated
