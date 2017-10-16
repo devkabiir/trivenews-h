@@ -99,6 +99,15 @@ class AnnotationSchema(JSONSchema):
                     'type': 'string',
                 },
             },
+            'sources': {
+                'type': 'array',
+                'items': {
+                    'type': 'string'
+                }
+            },
+            'truthiness': {
+                'type': 'number'
+            },
             'target': {
                 'type': 'array',
                 'items': {

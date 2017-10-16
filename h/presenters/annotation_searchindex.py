@@ -24,6 +24,8 @@ class AnnotationSearchIndexPresenter(AnnotationBasePresenter):
             'uri': self.annotation.target_uri,
             'text': self.text,
             'tags': self.tags,
+            'sources': self.sources,
+            'truthiness': self.truthiness,
             'tags_raw': self.tags,
             'group': self.annotation.groupid,
             'shared': self.annotation.shared,
