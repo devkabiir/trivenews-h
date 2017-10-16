@@ -160,6 +160,8 @@ class CreateAnnotationSchema(object):
 
         new_appstruct['text'] = appstruct.pop('text', u'')
         new_appstruct['tags'] = appstruct.pop('tags', [])
+        new_appstruct['truthiness'] = appstruct.pop('truthiness', 0)
+        new_appstruct['sources'] = appstruct.pop('sources', [])
         new_appstruct['groupid'] = appstruct.pop('group', u'__world__')
         new_appstruct['references'] = appstruct.pop('references', [])
 
@@ -227,7 +229,7 @@ class UpdateAnnotationSchema(object):
 
         # Fields that are allowed to be updated and that have the same internal
         # and external name.
-        for key in ['text', 'tags']:
+        for key in ['text', 'tags', 'truthiness', 'sources']:
             if key in appstruct:
                 new_appstruct[key] = appstruct.pop(key)
 

@@ -79,7 +79,7 @@ class Annotation(Base):
     sources = sa.Column("sources", MutableList.as_mutable(pg.ARRAY(sa.UnicodeText,
                                                      zero_indexes=True)))        
     # truth-o-meter
-    truthiness = sa.Column("truthiness", sa.Integer)                                                                                                  
+    truthiness = sa.Column("truthiness", sa.Integer)                                                                                         
 
     #: A boolean indicating whether this annotation is shared with members of
     #: the group it is published in. "Private"/"Only me" annotations have
@@ -142,7 +142,7 @@ class Annotation(Base):
 
     @hybrid_property
     def text(self):
-        return self._text
+        return self._text   
 
     @text.setter
     def text(self, value):
