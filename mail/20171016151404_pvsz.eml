@@ -1,0 +1,31 @@
+From nobody Mon Oct 16 15:14:04 2017
+Content-Type: multipart/alternative;
+ boundary="===============3538407969709301875=="
+MIME-Version: 1.0
+From: nobody
+Subject: Please activate your account
+To: bobbington@mailinator.com
+
+--===============3538407969709301875==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+Please=20validate=20your=20email=20and=20activate=20your=20account=20by=20v=
+isiting:
+
+=20=20http://localhost:5000/activate/1/7a215b471c2e
+--===============3538407969709301875==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<p>Please=20validate=20your=20email=20and=20activate=20your=20account=20by=
+=20visiting:</p>
+
+
+<p>&nbsp;&nbsp;<a=20href=3D"http://localhost:5000/activate/1/7a215b471c2e"=
+=20mc:disable-tracking>http://localhost:5000/activate/1/7a215b471c2e</a></p>
+--===============3538407969709301875==--
