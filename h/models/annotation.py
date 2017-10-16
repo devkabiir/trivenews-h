@@ -75,6 +75,12 @@ class Annotation(Base):
     tags = sa.Column(MutableList.as_mutable(pg.ARRAY(sa.UnicodeText,
                                                      zero_indexes=True)))
 
+    #: The links to fact check associated with the annotation.
+    sources = sa.Column(MutableList.as_mutable(pg.ARRAY(sa.UnicodeText,
+                                                     zero_indexes=True)))        
+    # truth-o-meter
+    truthiness = sa.Column(sa.Integer)                                                                                                  
+
     #: A boolean indicating whether this annotation is shared with members of
     #: the group it is published in. "Private"/"Only me" annotations have
     #: shared=False.

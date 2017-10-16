@@ -163,3 +163,11 @@ class AnnotationHTMLPresenter(object):
     @property
     def tags(self):
         return self.annotation.tags
+
+    @property
+    def sources(self):
+        return self.annotation.sources
+
+    @property
+    def truthiness(self):
+        return self.annotation.truthiness        

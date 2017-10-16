@@ -30,6 +30,20 @@ class AnnotationBasePresenter(object):
         return self.annotation_resource.links
 
     @property
+    def sources(self):
+        if self.annotation.sources:
+            return self.annotation.sources
+        else:
+            return []
+
+    @property
+    def truthiness(self):
+        if self.annotation.truthiness:
+            return self.annotation.truthiness
+        else:
+            return 0
+
+    @property
     def text(self):
         if self.annotation.text:
             return self.annotation.text
