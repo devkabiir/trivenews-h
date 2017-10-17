@@ -62,6 +62,13 @@ class SearchController(object):
             q = parser.unparse({'tag': tag})
             return self.request.route_url('activity.search', _query=[('q', q)])
 
+        def source_link(source):
+            if not source
+                return ""
+            if source.startswith("http")
+                return source
+            return "http://" + source
+
         def username_from_id(userid):
             parts = split_user(userid)
             return parts['username']
