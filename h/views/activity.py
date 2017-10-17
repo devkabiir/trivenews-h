@@ -72,11 +72,13 @@ class SearchController(object):
         def average_score(bucket):
             totalScore = 0
             for annotation in bucket.annotations:
-                totalScore += int(annotation.truthiness)
+                totalScore += int(annotation.truthiness or 0)
             average = totalScore/len(bucket.annotations)
             return average
         
         def score_text(score):
+            if not score:
+                score = 0
             if score < -50:
                 return "BLATANT LIE!"
             elif score < 0:
@@ -86,6 +88,8 @@ class SearchController(object):
             return "Probaly True"
 
         def score_color(score):
+            if not score:
+                score = 0
             score = int(score)
             if score < -50:
                 return "#F03E3E"
