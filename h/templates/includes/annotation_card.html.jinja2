@@ -5,11 +5,12 @@
   an annotation quote, description and a list of tags.
 
   Usage:
-    {{ annotation_card(presented_annotation, request, tag_link) }}
+    {{ annotation_card(presented_annotation, request, tag_link, source_link) }}
 
   :param presented_annotation: The annotation object which includes all the fields to display.
   :param request: The request param containing the route_url method.
   :param tag_link: Method which generates a link for a given tag.
+  :param source_link: Method which generates a link for given source
 #}
 
 {% macro annotation_card(presented_annotation, request, tag_link, source_link) -%}
