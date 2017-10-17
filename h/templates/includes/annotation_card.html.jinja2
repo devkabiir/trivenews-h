@@ -13,7 +13,7 @@
   :param source_link: Method which generates a link for given source
 #}
 
-{% macro annotation_card(presented_annotation, request, tag_link, source_link) -%}
+{% macro annotation_card(presented_annotation, request, tag_link, source_link, score_color) -%}
 <li class="annotation-card">
   <div class="annotation-card__header">
     <div class="annotation-card__username-timestamp">
@@ -55,16 +55,20 @@
     {{ presented_annotation.annotation.text_rendered }}
   </p>
   <div title="References" class="annotation-card__references">
-    {% for source in presented_annotation.annotation.sources%}
-      <div>
-        <a class="annotation-card__annotation" href="{{ source_link(source) }}">
-          {{ source }}
-        </a>
-      </div>
-    {% endfor %}
+    {% if presented_annotation.annotation.sources %}
+      <p class="annotation-card__references-label">References</p>
+      {% for source in presented_annotation.annotation.sources %}
+        <div>
+          <a class="annotation-card__annotation" href="{{ source_link(source) }}" target="_blank">
+            {{ source }}
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
   </div>
   <div title="Truth-O-Meter" class="annotation-card__truthiness">
-    <div>{{ presented_annotation.annotation.truthiness }}</div>
+    <p class="annotation-card__references-label">Truth-O-Meter</p>
+    <div class="annotation-card__truthiness-score" style="background-color:{{ score_color(presented_annotation.annotation.truthiness) }}">{{ presented_annotation.annotation.truthiness }}</div>
   </div>
   <div title="Tags" class="annotation-card__tags">
     {% for tag in presented_annotation.annotation.tags%}

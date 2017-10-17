@@ -86,6 +86,7 @@ class SearchController(object):
             return "Probaly True"
 
         def score_color(score):
+            score = int(score)
             if score < -50:
                 return "#F03E3E"
             elif score < 0:
