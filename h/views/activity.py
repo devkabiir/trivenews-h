@@ -63,9 +63,9 @@ class SearchController(object):
             return self.request.route_url('activity.search', _query=[('q', q)])
 
         def source_link(source):
-            if not source
+            if not source:
                 return ""
-            if source.startswith("http")
+            if source.startswith("http"):
                 return source
             return "http://" + source
 
@@ -85,6 +85,7 @@ class SearchController(object):
             'pretty_link': pretty_link,
             'q': self.request.params.get('q', ''),
             'tag_link': tag_link,
+            'source_link': source_link,
             'user_link': user_link,
             'username_from_id': username_from_id,
             # The message that is shown (only) if there's no search results.
