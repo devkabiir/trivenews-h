@@ -76,7 +76,7 @@ class Annotation(Base):
                                                      zero_indexes=True)))
 
     #: The links to fact check associated with the annotation.
-    sources = sa.Column("sources", MutableList.as_mutable(pg.ARRAY(sa.UnicodeText,
+    sources = sa.Column(MutableList.as_mutable(pg.ARRAY(sa.UnicodeText,
                                                      zero_indexes=True)))        
     # truth-o-meter
     truthiness = sa.Column("truthiness", sa.Integer)                                                                                         

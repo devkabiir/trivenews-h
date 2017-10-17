@@ -63,11 +63,14 @@ class SearchController(object):
             return self.request.route_url('activity.search', _query=[('q', q)])
 
         def source_link(source):
-            if not source
+            if not source:
                 return ""
-            if source.startswith("http")
+            if source.startswith("http"):
                 return source
             return "http://" + source
+
+        def average_score(bucket)
+            return 0
 
         def username_from_id(userid):
             parts = split_user(userid)
@@ -86,6 +89,7 @@ class SearchController(object):
             'q': self.request.params.get('q', ''),
             'tag_link': tag_link,
             'source_link': source_link,
+            'average_score': average_score,
             'user_link': user_link,
             'username_from_id': username_from_id,
             # The message that is shown (only) if there's no search results.

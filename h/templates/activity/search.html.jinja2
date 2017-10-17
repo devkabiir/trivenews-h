@@ -117,6 +117,11 @@
             {% trans %}Untitled document{% endtrans %}
         {% endif %}
         </a>
+        <div class="search-result-bucket__truthiness">
+          <div class="search-result-bucket__truthiness-container">
+              {{ average_score(bucket) }}
+          </div>
+        </div>
         <div title="{{ bucket.annotations_count }} annotations added"
              class="search-result-bucket__annotations-count">
           <div class="search-result-bucket__annotations-count-container">

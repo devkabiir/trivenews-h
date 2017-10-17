@@ -152,11 +152,11 @@ def aggregations_for(query):
 @newrelic.agent.function_trace()
 def fetch_annotations(session, ids):
     def load_documents(query):
-        return query.options(subqueryload(Annotation.document))
+        return query.options(subqueryload(Annotation.document, Annotation.truthiness))
 
     annotations = storage.fetch_ordered_annotations(
         session, ids, query_processor=load_documents)
-
+    print annotations
     return annotations
 
 
