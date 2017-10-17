@@ -135,7 +135,6 @@ def execute(request, query, page_size):
                     'group': groups.get(annotation.groupid),
                     'incontext_link': links.incontext_link(request, annotation)
                 })
-
     return result
 
 
@@ -152,11 +151,10 @@ def aggregations_for(query):
 @newrelic.agent.function_trace()
 def fetch_annotations(session, ids):
     def load_documents(query):
-        return query.options(subqueryload(Annotation.document, Annotation.truthiness))
+        return query.options(subqueryload(Annotation.document))
 
     annotations = storage.fetch_ordered_annotations(
         session, ids, query_processor=load_documents)
-    print annotations
     return annotations
 
 

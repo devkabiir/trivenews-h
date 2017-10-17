@@ -118,8 +118,9 @@
         {% endif %}
         </a>
         <div class="search-result-bucket__truthiness">
-          <div class="search-result-bucket__truthiness-container">
-              {{ average_score(bucket) }}
+          <div class="search-result-bucket__truthiness-container" style="background-color:{{ score_color(average_score(bucket)) }}">
+              <span class="search-result-bucket__truthiness-score-text">{{ score_text(average_score(bucket)) }}</span>
+              <span class="search-result-bucket__truthiness-average-score">{{ average_score(bucket) }}</span>
           </div>
         </div>
         <div title="{{ bucket.annotations_count }} annotations added"

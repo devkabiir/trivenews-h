@@ -69,8 +69,30 @@ class SearchController(object):
                 return source
             return "http://" + source
 
-        def average_score(bucket)
-            return 0
+        def average_score(bucket):
+            totalScore = 0
+            for annotation in bucket.annotations:
+                totalScore += int(annotation.truthiness)
+            average = totalScore/len(bucket.annotations)
+            return average
+        
+        def score_text(score):
+            if score < -50:
+                return "BLATANT LIE!"
+            elif score < 0:
+                return "Probably False"
+            elif score < 50:
+                return "Maybe"
+            return "Probaly True"
+
+        def score_color(score):
+            if score < -50:
+                return "#F03E3E"
+            elif score < 0:
+                return "#ff920b"
+            elif score < 50:
+                return "#FFDD00"
+            return "#33ff00"
 
         def username_from_id(userid):
             parts = split_user(userid)
@@ -90,6 +112,8 @@ class SearchController(object):
             'tag_link': tag_link,
             'source_link': source_link,
             'average_score': average_score,
+            'score_text': score_text,
+            'score_color': score_color,
             'user_link': user_link,
             'username_from_id': username_from_id,
             # The message that is shown (only) if there's no search results.
