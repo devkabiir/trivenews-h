@@ -53,6 +53,18 @@
   <p class="annotation-card__text">
     {{ presented_annotation.annotation.text_rendered }}
   </p>
+  <div title="References" class="annotation-card__references">
+    {% for source in presented_annotation.annotation.sources%}
+      <div>
+        <a class="annotation-card__annotation" href="{{ source_link(source) }}">
+          {{ source }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div title="Truth-O-Meter" class="annotation-card__truthiness">
+    <div>{{ presented_annotation.annotation.truthiness }}</div>
+  </div>
   <div title="Tags" class="annotation-card__tags">
     {% for tag in presented_annotation.annotation.tags%}
       <a class="annotation-card__tag" href="{{ tag_link(tag) }}">
