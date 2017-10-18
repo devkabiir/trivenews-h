@@ -151,15 +151,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ececec;
     text-align: center;
     border-radius: 2px;
-    height: 25px;
-    padding: 5px 8px;
+    // background-color: #ececec;
+    // height: 25px;
+    // padding: 5px 8px;
     float: right;
     .search-result-bucket__truthiness-average-score {
         margin-left: 5px;
         font-weight: bold;
+        height: 25px;
+        padding: 5px 8px;
+        border-radius:2px;
     }
     .search-result-bucket__truthiness-score-text {}
 }

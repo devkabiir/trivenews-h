@@ -85,7 +85,7 @@ class SearchController(object):
                 return "Probably False"
             elif score < 50:
                 return "Maybe"
-            return "Probaly True"
+            return "Probably True"
 
         def score_color(score):
             if not score:
