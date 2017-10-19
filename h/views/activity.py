@@ -97,7 +97,7 @@ class SearchController(object):
                 return "#ff920b"
             elif score < 50:
                 return "#FFDD00"
-            return "#33ff00"
+            return "#57de36"
 
         def username_from_id(userid):
             parts = split_user(userid)

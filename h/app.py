@@ -70,7 +70,7 @@ def includeme(config):
     config.include('pyramid_layout')
 
     config.registry.settings.setdefault('mail.default_sender',
-                                        '"Annotation Daemon" <no-reply@localhost>')
+                                        '"Trive.news" <no-reply@trive.news>')
     if asbool(config.registry.settings.get('h.debug')):
         config.include('pyramid_mailer.debug')
     else:
