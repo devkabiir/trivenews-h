@@ -134,7 +134,7 @@ def includeme(config):
                      traverse='/{pubid}')
 
     # Help
-    config.add_route('help', '/docs/help')
+    config.add_route('help', 'https://trive.news')
     config.add_route('onboarding', '/welcome/')
     config.add_route('custom_onboarding', '/welcome/{slug}')
 
@@ -145,14 +145,14 @@ def includeme(config):
     config.add_route('status', '/_status')
 
     # Static
-    config.add_route('about', '/about/', static=True)
+    config.add_route('about', 'https://trive.news', static=True)
     config.add_route('bioscience', '/bioscience/', static=True)
     config.add_route('blog', 'https://trive.news/blog/', static=True)
     config.add_route(
         'chrome-extension',
         'https://trive.news/plugin',
         static=True)
-    config.add_route('contact', '/contact/', static=True)
+    config.add_route('contact', 'https://trive.news/contact/', static=True)
     config.add_route('contribute', '/contribute/', static=True)
     config.add_route('education', '/education/', static=True)
     config.add_route('for-publishers', '/for-publishers/', static=True)
@@ -165,10 +165,10 @@ def includeme(config):
         'hypothesis-twitter', 'https://twitter.com/Trive_News', static=True)
     config.add_route('jobs', '/jobs/', static=True)
     config.add_route('press', '/press/', static=True)
-    config.add_route('privacy', '/privacy/', static=True)
+    config.add_route('privacy', 'https://trive.news/privacy-policy/', static=True)
     config.add_route('roadmap', '/roadmap/', static=True)
     config.add_route('team', '/team/', static=True)
-    config.add_route('terms-of-service', '/terms-of-service/', static=True)
+    config.add_route('terms-of-service', 'https://trive.news/terms-and-conditions/', static=True)
     config.add_route(
         'wordpress-plugin', 'https://wordpress.org/plugins/hypothesis/',
         static=True)
