@@ -28,6 +28,11 @@ from h.models.document import update_document_metadata
 _ = i18n.TranslationStringFactory(__package__)
 
 
+def fetch_annotation_scores_for_links(session):
+    query = 'SELECT AVG(truthiness) FROM "annotation" GROUP BY "target_uri"'
+    annotations = session.query(models.Annotation).where(target_uri)
+    return annotations
+
 def fetch_annotation(session, id_):
     """
     Fetch the annotation with the given id.

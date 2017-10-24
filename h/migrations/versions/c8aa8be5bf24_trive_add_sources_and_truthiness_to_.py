@@ -18,7 +18,7 @@ down_revision = '9bcc39244e82'
 
 def upgrade():
     op.add_column('annotation', sa.Column('sources', pg.ARRAY(sa.UnicodeText, zero_indexes=True)))
-    op.add_column('annotation', sa.Column('truthiness', sa.UnicodeText()))
+    op.add_column('annotation', sa.Column('truthiness', sa.Integer()))
 
 def downgrade():
     op.drop_column('annotation', 'sources')

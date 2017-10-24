@@ -116,6 +116,25 @@ def search(request):
     return out
 
 
+@api_config(route_name='api.annotationsforlinks',
+            request_method='POST',
+            # permission='read',
+            link_name='annotationsforlinks',
+            description='Fetch a list of annotations')
+def showLista(request):
+    """Return annotations for the page"""
+    data = storage.fetch_annotation_scores_for_links(request.db)
+    print annotations
+    links = []
+    links.append("bob")
+    data = {
+        'links': links
+    }
+
+    return data
+    # return {'links':[{'url':'a'}]}
+
+
 @api_config(route_name='api.annotations',
             request_method='POST',
             effective_principals=security.Authenticated,
