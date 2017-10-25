@@ -29,6 +29,10 @@ class Annotation(Base):
         sa.Index('ix__annotation_tags', 'tags', postgresql_using='gin'),
         sa.Index('ix__annotation_updated', 'updated'),
 
+
+        #
+        sa.Index('ix__annotation_target_uri', 'target_uri'),
+
         # This is a functional index on the *first* of the annotation's
         # references, pointing to the top-level annotation it refers to. We're
         # using 1 here because Postgres uses 1-based array indexing.

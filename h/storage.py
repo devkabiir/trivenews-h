@@ -20,6 +20,8 @@ assumed to be validated.
 from datetime import datetime
 
 from pyramid import i18n
+from sqlalchemy import text, bindparam
+import sqlalchemy as sa
 
 from h import models, schemas
 from h.db import types
@@ -28,10 +30,20 @@ from h.models.document import update_document_metadata
 _ = i18n.TranslationStringFactory(__package__)
 
 
-def fetch_annotation_scores_for_links(session):
-    query = 'SELECT AVG(truthiness) FROM "annotation" GROUP BY "target_uri"'
-    annotations = session.query(models.Annotation).where(target_uri)
-    return annotations
+def fetch_annotation_scores_for_links(db, linksToFind):
+    placeholders = []
+    boundparams = []
+    i = 1
+    for link in linksToFind:
+        placeholders.append(" :" + str(i))
+        boundparams.append(bindparam(str(i),value=link, type_=sa.UnicodeText))
+        i += 1
+
+    query = text('SELECT target_uri, AVG(truthiness) as avgtruthiness FROM "annotation" WHERE "target_uri" IN (' + ','.join(placeholders) + ')  GROUP BY "target_uri"', bindparams=boundparams)
+    print "query is "
+    print query
+    results = db.execute(query)
+    return results
 
 def fetch_annotation(session, id_):
     """

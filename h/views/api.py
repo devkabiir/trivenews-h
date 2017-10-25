@@ -123,16 +123,20 @@ def search(request):
             description='Fetch a list of annotations')
 def showLista(request):
     """Return annotations for the page"""
-    data = storage.fetch_annotation_scores_for_links(request.db)
-    print annotations
-    links = []
-    links.append("bob")
-    data = {
-        'links': links
-    }
+    linksToFind = request.json_body[u'links']
+    for link in linksToFind:
+        if not isinstance(link, basestring):
+            request.response.status = 400
+            return {"error":"invalid data. All links must be strings"}
+        
+    data = storage.fetch_annotation_scores_for_links(request.db, linksToFind)
+    links = {}
+    for row in data:
+        links[row[0]] = float(row[1])
+
+    data = { 'links': links }
 
     return data
-    # return {'links':[{'url':'a'}]}
 
 
 @api_config(route_name='api.annotations',
