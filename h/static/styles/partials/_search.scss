@@ -2,6 +2,22 @@
 // -----------
 // Styles for the search page which displays the results
 // of activity queries.
+
+.search-results-container{
+    display:flex;
+    width:100%;
+    flex-grow:1;
+    .need-to-be-checked, .search-results{
+        flex-grow:1;
+        flex-basis:0;
+    }
+}
+
+.search-result-sidebar{
+    display:none;
+}
+
+
 .search-result-nav {
     display: none;
     align-items: center;

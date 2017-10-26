@@ -9,6 +9,9 @@ import sqlalchemy as sa
 import transaction
 from sqlalchemy.dialects import postgresql as pg
 from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import event
+from sqlalchemy import text, bindparam
+
 
 from h._compat import urlparse
 from h.db import Base, mixins
@@ -32,6 +35,10 @@ class Document(Base, mixins.Timestamps):
 
     #: The denormalized value of the "best" http(s) DocumentURI for this Document.
     web_uri = sa.Column('web_uri', sa.UnicodeText())
+
+    num_annotations = sa.Column('num_annotations', sa.Integer(), default=0)
+
+    avg_score = sa.Column('avg_score', sa.Integer(), default=0)
 
     # FIXME: This relationship should be named `uris` again after the
     #        dependency on the annotator-store is removed, as it clashes with
@@ -195,6 +202,28 @@ class DocumentURI(Base, mixins.Timestamps):
 
     def __repr__(self):
         return '<DocumentURI %s>' % self.id
+
+
+    # standard decorator style
+    @event.listens_for(Annotation.target_uri, 'append')
+    def receive_append(target, value, initiator):
+        "listen for the 'append' event"
+        print "WE ADDED AN ITEM"
+
+    def my_append_listener(target, value, initiator):
+        print "received append event for target: %s" % target
+
+    event.listen(Annotation.target_uri, 'append', my_append_listener)
+
+    @event.listens_for(Annotation, "after_insert")
+    @event.listens_for(Annotation, "after_update")
+    @event.listens_for(Annotation, "after_delete")
+    def annotation_inserted(mapper, connection, annotation):
+        #updat num annotations and average score
+        query = text('UPDATE document SET num_annotations=(SELECT COUNT(*) FROM annotation where document_id= :document_id), avg_score=(SELECT AVG(truthiness) FROM "annotation" WHERE document_id= :document_id) WHERE id= :document_id', bindparams=[bindparam("document_id",value=annotation.document_id, type_=sa.Integer)])
+        print "query is "
+        print query
+        results = connection.execute(query)
 
 
 class DocumentMeta(Base, mixins.Timestamps):

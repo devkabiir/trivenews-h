@@ -199,3 +199,9 @@ class Annotation(Base):
 
     def __repr__(self):
         return '<Annotation %s>' % self.id
+
+        # standard decorator style
+    # @event.listens_for(self.target_uri, 'append')
+    # def receive_append(target, value, initiator):
+    #     "listen for the 'append' event"
+    #     print "WE ADDED AN ITEM"

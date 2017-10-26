@@ -36,7 +36,6 @@ class SearchController(object):
     @view_config(request_method='GET')
     def search(self):
         q = query.extract(self.request)
-
         # Check whether a redirect is required.
         query.check_url(self.request, q)
 
@@ -48,7 +47,6 @@ class SearchController(object):
 
         # Fetch results.
         results = query.execute(self.request, q, page_size=page_size)
-
         groups_suggestions = []
 
         if self.request.user:
