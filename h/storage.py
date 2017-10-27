@@ -45,6 +45,15 @@ def fetch_annotation_scores_for_links(db, linksToFind):
     results = db.execute(query)
     return results
 
+def fetch_unscored_documents(session):
+    return session.query(models.Document).filter(models.Document.num_annotations < 5)
+
+def fetch_scored_documents(session):
+    return session.query(models.Document).filter(models.Document.num_annotations >= 5)
+
+def fetch_annotations_for_document(session, document_id):
+    return session.query(models.Annotation).filter(models.Annotation.document_id == document_id).filter(models.Annotation.deleted != True)
+
 def fetch_annotation(session, id_):
     """
     Fetch the annotation with the given id.

@@ -209,6 +209,7 @@ class DeletedFilter(object):
     deleted.
     """
 
+
     def __call__(self, _):
         return {"bool": {"must_not": {"exists": {"field": "deleted"}}}}
 

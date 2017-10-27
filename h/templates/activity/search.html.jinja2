@@ -27,6 +27,14 @@
 </form>
 {% endmacro %}
 
+{% macro show_urls_needing_verification(urls_needing_verification) %}
+  {% for document in urls_needing_verification %}
+  <div>
+    {{ document['web_uri'] }}
+  </div>
+  {% endfor %}
+{% endmacro %}
+
 {# Card displaying statistics about a bucket of annotations. #}
 {% macro search_bucket_stats(bucket) %}
 <div class="search-bucket-stats">
@@ -377,6 +385,7 @@
       <div class="search-results-container">
         <div class="need-to-be-checked">
           <p>these need to be checked</p>
+           {{show_urls_needing_verification()}}
         </div>
         <div class="search-results {%- if more_info %} search-result-hide-on-small-screens{% endif %}">
 

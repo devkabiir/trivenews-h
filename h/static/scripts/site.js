@@ -26,6 +26,8 @@ const SignupFormController = require('./controllers/signup-form-controller');
 const TooltipController = require('./controllers/tooltip-controller');
 const upgradeElements = require('./base/upgrade-elements');
 
+const VueData = require('./pages/documents_list/list.js');
+
 const controllers = {
   '.js-authorize-form': AuthorizeFormController,
   '.js-character-limit': CharacterLimitController,

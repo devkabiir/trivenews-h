@@ -31,6 +31,9 @@ def includeme(config):
                      factory='h.models.user:UserFactory',
                      traverse='/{username}')
 
+    # List 
+    config.add_route('document.list', '/document-list')
+
     # Admin
     config.add_route('admin_index', '/admin/')
     config.add_route('admin_admins', '/admin/admins')
@@ -79,6 +82,7 @@ def includeme(config):
     config.add_route('api.links', '/api/links')
     config.add_route('api.annotationsforlinks', '/api/annotations-for-links')
     config.add_route('api.annotations', '/api/annotations')
+    config.add_route('api.documents', '/api/documents')
     config.add_route('api.annotation',
                      '/api/annotations/{id:[A-Za-z0-9_-]{20,22}}',
                      factory='h.resources:AnnotationResourceFactory',

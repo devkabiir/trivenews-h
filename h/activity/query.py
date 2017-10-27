@@ -105,7 +105,7 @@ def check_url(request, query, unparse=parser.unparse):
 @newrelic.agent.function_trace()
 def execute(request, query, page_size):
     search_result = _execute_search(request, query, page_size)
-
+    print search_result
     result = ActivityResults(total=search_result.total,
                              aggregations=search_result.aggregations,
                              timeframes=[])

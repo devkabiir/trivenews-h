@@ -90,6 +90,10 @@ var bundles = [{
   name: 'site',
   entry: './h/static/scripts/site',
 },{
+  // Public-facing website
+  name: 'documents-list',
+  entry: './h/static/scripts/documents-list',
+},{
   // Admin areas of the site
   name: 'admin-site',
   entry: './h/static/scripts/admin-site',

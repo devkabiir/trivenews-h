@@ -21,6 +21,12 @@ from h.search import parser
 from h.util.user import split_user
 from h.views.groups import check_slug
 
+from sqlalchemy import text, bindparam
+
+# from h.models.Document import Document
+
+# from sqlalchemy import statement
+
 
 PAGE_SIZE = 200
 
@@ -36,6 +42,7 @@ class SearchController(object):
     @view_config(request_method='GET')
     def search(self):
         q = query.extract(self.request)
+        
         # Check whether a redirect is required.
         query.check_url(self.request, q)
 
@@ -45,8 +52,20 @@ class SearchController(object):
         except ValueError:
             page_size = PAGE_SIZE
 
+        # print str(query)
+        # print str(q)
+        # q.filter(Document.num_annotations < 5)
+        # query.filter(Document.)
+
         # Fetch results.
         results = query.execute(self.request, q, page_size=page_size)
+
+
+        needingVerificationQuery = text('SELECT * FROM document WHERE num_annotations < 500')
+        print "query is "
+        print needingVerificationQuery
+        urls_needing_verification = self.request.db.execute(needingVerificationQuery)
+        print urls_needing_verification
         groups_suggestions = []
 
         if self.request.user:
@@ -108,6 +127,7 @@ class SearchController(object):
 
         return {
             'search_results': results,
+            'urls_needing_verification': urls_needing_verification,
             'groups_suggestions': groups_suggestions,
             'page': paginate(self.request, results.total, page_size=page_size),
             'pretty_link': pretty_link,
@@ -199,7 +219,7 @@ class GroupSearchController(SearchController):
                     name=Markup.escape(self.group.name)))
 
         return result
-
+    
     @view_config(request_method='POST',
                  request_param='group_join')
     def join(self):

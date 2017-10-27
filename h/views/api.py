@@ -62,6 +62,24 @@ def index(context, request):
         'links': links,
     }
 
+@api_config(route_name='api.documents',
+            description='List of documents')
+def documents(context, request):
+    if "unscored_only" in request.params:
+        data = storage.fetch_unscored_documents(request.db)
+    elif "scored_only" in request.params:
+        data = storage.fetch_scored_documents(request.db)
+
+    documents = []
+    for document in data:
+        documents.append({
+            'id': document.id,
+            'title': document.title,
+            'web_uri': document.web_uri,
+            'avg_score': document.avg_score,
+            'num_annotations': document.num_annotations
+        })
+    return documents
 
 @api_config(route_name='api.links',
             link_name='links',
@@ -138,6 +156,21 @@ def showLista(request):
 
     return data
 
+@api_config(route_name='api.annotations',
+            request_method='GET')
+def getAnnotations(context, request):
+    if "document_id" in request.params:
+        data = storage.fetch_annotations_for_document(request.db, request.params['document_id'])
+    if not data:
+        return []
+    annotations = []
+    for annotation in data:
+        annotations.append({
+            'truthiness':annotation.truthiness,
+            'references': annotation.references,
+            '_text_rendered': annotation._text_rendered
+        })
+    return annotations
 
 @api_config(route_name='api.annotations',
             request_method='POST',
