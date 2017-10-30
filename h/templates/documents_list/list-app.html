@@ -1,47 +1,15 @@
-#jinja2: variable_start_string: "[%" , variable_end_string: "%]"
 {% raw %}
-<div id="app-v" v-cloak class="documents-list-page">
+<div id="app-v" v-cloak class="docs-list-page">
 	<div class="results-container">
 		<div class="needs-annotation-container">
 			<h2>Need Scoring</h2>
-			<div v-for="document in unscored" v-on:click="toggleShowDetails(document)">
-				<div class="document-needing-annotation document-summary">
-					<div class="page-title">
-						<div>{{document.title}}</div>
-						<div class="domain">
-							<domain :uri="document.web_uri"></domain>
-						</div>
-					</div>
-					<div class="num-annotations-container">
-						<span class="info-square">{{document.num_annotations}}</span>
-					</div>
-				</div>
-			</div>
+			<document v-for="doc in unscored" :doc="doc" :key="doc.id"></document>
+			<pagination :value="unscoredPaginationData" @input="unscoredPaginationChanged"></pagination>
 		</div>
 		<div class="already-annotated-container">
 			<h2>Already Scored</h2>
-			<div class="document-container" v-for="document in scored" v-on:click="toggleShowDetails(document)" v-bind:class="{'expanded':document.showDetails}">
-				<div class="annotated-document document-summary">
-					<div class="page-title">
-						<span>{{document.title}}</span>
-						<div class="domain">
-							<domain :uri="document.web_uri"></domain>
-						</div>					
-					</div>
-					<div class="avg-score-container">
-						<avg-score v-bind:score="document.avg_score"></avg-score>
-					</div>
-					<div class="num-annotations-container">
-						<span class="info-square">{{document.num_annotations}}</span>
-					</div>
-				</div>
-				<div v-if="document.showDetails">
-					<p v-if="document.loadingAnnotations">Loading</p>
-					<div class="annotation-container" v-for="annotation in document.annotations">
-						
-					</div>
-				</div>
-			</div>
+			<document v-for="doc in scored" v-bind:doc="doc" :key="doc.id"></document>
+			<pagination :value="scoredPaginationData" @input="scoredPaginationChanged"></pagination>
 		</div>
 	</div>
 </div>

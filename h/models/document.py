@@ -27,6 +27,9 @@ class ConcurrentUpdateError(transaction.interfaces.TransientError):
 
 class Document(Base, mixins.Timestamps):
     __tablename__ = 'document'
+    __table_args__ = (
+        sa.Index('ix__document_num_annotations', 'num_annotations'),
+    )
 
     id = sa.Column(sa.Integer, autoincrement=True, primary_key=True)
 

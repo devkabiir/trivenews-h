@@ -60,7 +60,6 @@ class SearchController(object):
         # Fetch results.
         results = query.execute(self.request, q, page_size=page_size)
 
-
         needingVerificationQuery = text('SELECT * FROM document WHERE num_annotations < 500')
         print "query is "
         print needingVerificationQuery

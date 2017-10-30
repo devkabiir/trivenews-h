@@ -95,7 +95,7 @@ class Annotation(Base):
 
     #: The URI of the annotated page, as provided by the client.
     _target_uri = sa.Column('target_uri', sa.UnicodeText)
-    #: The URI of the annotated page in normalized form.
+    #: The URI of the annotated page in nit srmalized form.
     _target_uri_normalized = sa.Column('target_uri_normalized', sa.UnicodeText)
     #: The serialized selectors for the annotation on the annotated page.
     target_selectors = sa.Column(types.AnnotationSelectorJSONB,

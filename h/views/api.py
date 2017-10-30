@@ -66,9 +66,14 @@ def index(context, request):
             description='List of documents')
 def documents(context, request):
     if "unscored_only" in request.params:
-        data = storage.fetch_unscored_documents(request.db)
+        data = storage.fetch_unscored_documents(request.db, int(request.params['page']), int(request.params['perPage']))
+        numDocumentsResults = storage.fetch_unscored_documents_count(request.db)
     elif "scored_only" in request.params:
-        data = storage.fetch_scored_documents(request.db)
+        data = storage.fetch_scored_documents(request.db, int(request.params['page']), int(request.params['perPage']))
+        numDocumentsResults = storage.fetch_scored_documents_count(request.db)
+
+    for row in numDocumentsResults:
+        numDocuments = row["count"]
 
     documents = []
     for document in data:
@@ -79,7 +84,10 @@ def documents(context, request):
             'avg_score': document.avg_score,
             'num_annotations': document.num_annotations
         })
-    return documents
+    return {
+        'documents': documents,
+        'count': numDocuments
+    }
 
 @api_config(route_name='api.links',
             link_name='links',
@@ -166,8 +174,9 @@ def getAnnotations(context, request):
     annotations = []
     for annotation in data:
         annotations.append({
+            'id':annotation.id,
             'truthiness':annotation.truthiness,
-            'references': annotation.references,
+            'sources': annotation.sources,
             '_text_rendered': annotation._text_rendered
         })
     return annotations

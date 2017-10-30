@@ -45,11 +45,17 @@ def fetch_annotation_scores_for_links(db, linksToFind):
     results = db.execute(query)
     return results
 
-def fetch_unscored_documents(session):
-    return session.query(models.Document).filter(models.Document.num_annotations < 5)
+def fetch_unscored_documents(session, page, perPage):
+    return session.query(models.Document).filter(models.Document.num_annotations < 5).order_by(models.Document.created.desc()).limit(perPage).offset((page - 1)*perPage)
 
-def fetch_scored_documents(session):
-    return session.query(models.Document).filter(models.Document.num_annotations >= 5)
+def fetch_unscored_documents_count(session):
+    return session.execute(text('SELECT COUNT(*) as count FROM "document" WHERE num_annotations < 5'));
+
+def fetch_scored_documents(session, page, perPage):
+    return session.query(models.Document).filter(models.Document.num_annotations >= 5).order_by(models.Document.created.desc()).limit(perPage).offset((page - 1)*perPage)
+
+def fetch_scored_documents_count(session):
+    return session.execute(text('SELECT COUNT(*) as count FROM "document" WHERE num_annotations >= 5'));
 
 def fetch_annotations_for_document(session, document_id):
     return session.query(models.Annotation).filter(models.Annotation.document_id == document_id).filter(models.Annotation.deleted != True)
