@@ -6,6 +6,9 @@
 .search-results-container{
     display:flex;
     width:100%;
+    .need-to-be-checked{
+        display:none !important;
+    }
     flex-grow:1;
     .need-to-be-checked, .search-results{
         flex-grow:1;

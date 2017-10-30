@@ -383,10 +383,6 @@
     {% if search_results.timeframes %}
 
       <div class="search-results-container">
-        <div class="need-to-be-checked">
-          <p>these need to be checked</p>
-           {{show_urls_needing_verification()}}
-        </div>
         <div class="search-results {%- if more_info %} search-result-hide-on-small-screens{% endif %}">
 
           {% if q or user or group %}
