@@ -1,0 +1,1 @@
+docker run -d --net host --env CLIENT_ID=nosuchid --env CLIENT_SECRET=nosuchsecret --env SECRET_KEY=thisisabigsecretduh --env USE_HTTPS=True --env APP_URL=https://hive.trive.news --env DATABASE_URL=postgresql://postgres@localhost/postgres dxhypothesis
