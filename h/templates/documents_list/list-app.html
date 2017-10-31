@@ -3,7 +3,7 @@
 	<div class="results-container">
 		<div class="needs-annotation-container">
 			<h2>Need Scoring</h2>
-			<document v-for="doc in unscored" :doc="doc" :key="doc.id"></document>
+			<document v-for="doc in unscored" :unscored="true" :doc="doc" :key="doc.id"></document>
 			<pagination :value="unscoredPaginationData" @input="unscoredPaginationChanged"></pagination>
 		</div>
 		<div class="already-annotated-container">

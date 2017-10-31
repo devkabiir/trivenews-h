@@ -26,6 +26,8 @@ const SignupFormController = require('./controllers/signup-form-controller');
 const TooltipController = require('./controllers/tooltip-controller');
 const upgradeElements = require('./base/upgrade-elements');
 window.Vue = require('./lib/vue');
+var GaugeLib = require("./lib/gauge.js");
+window.Gauge = GaugeLib.Gauge;
 
 const VueData = require('./pages/documents_list/list.js');
 

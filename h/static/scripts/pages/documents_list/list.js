@@ -1,4 +1,3 @@
-console.log("FFFFFFFFFFFFFFFFFFFFFFFFFF")
 // var $ = require('jquery')
 window.addEventListener('load', function () {
 	console.log("Loaded")
@@ -14,12 +13,12 @@ window.addEventListener('load', function () {
 			loadingScored: true,
 			unscoredPaginationData: {
 				currentPage: 1,
-				perPage: 1,
+				perPage: 10,
 				total: 0
 			},
 			scoredPaginationData: {
 				currentPage: 1,
-				perPage: 1,
+				perPage: 10,
 				total: 0
 			}
 		},
@@ -75,7 +74,7 @@ window.addEventListener('load', function () {
 })
 
 Vue.component("document", {
-	props: ["doc"],
+	props: ["doc","unscored"],
 	data: function () {
 		return {
 			showDetails: false,
@@ -142,10 +141,13 @@ Vue.component("document", {
 	'            <p class="doc-url">' +
 	'                <a :href="doc.web_uri" target="_blank">{{doc.web_uri}}</a>' +
 	'            </p>' +
-	'            <p class="doc-url-header">Truth-O-Meter</p>' +
-	'            <p class="doc-url">' +
+	'            <p class="doc-url-header"  v-if="!this.unscored">Truth-O-Meter</p>' +
+	'            <p class="doc-url" v-if="!this.unscored">' +
 	'                {{truthinessText}}' +
 	'            </p>' +
+	'			 <p class=""  v-if="!this.unscored">' +
+	'				<truthiness-gauge :value="doc.avg_score"></truthiness-gauge>' +
+	'			 </p>' +
 	'        </div>' +
 	'    </div>' +
 	'</div>',
@@ -194,7 +196,7 @@ Vue.component("document", {
 			'	<div class="reference" v-for="source in annotation.sources">' +
 			'		<link-display :url="source"></link-display>' +
 			'   </div > ' +
-			'	<p class="truthiness-header">Truth-O-Meter</p>'+
+			'	<p class="truthiness-header">Truth-O-Meter</p>' +
 			'	<p class="truthiness-score" v-bind:style="truthinessStyle">{{annotation.truthiness}}</p>' +
 			'</div>'
 		}
@@ -221,6 +223,44 @@ Vue.component("link-display", {
 		}
 	},
 	template: '<a :href="fullHref">{{prettyLinkText}}</a>'
+})
+Vue.component("truthiness-gauge", {
+	props: ['value'],
+	mounted: function () {
+		this.$nextTick(function () {
+			var gaugeOptions = {
+				angle: 0, // The span of the gauge arc
+				lineWidth: 0.4, // The line thickness
+				radiusScale: .7, // Relative radius
+				pointer: {
+					length: 0.6, // // Relative to gauge radius
+					strokeWidth: 0.035, // The thickness
+					color: '#000000' // Fill color
+				},
+				// percentColors: [[0.0, "#a9d70b"], [0.50, "#f9c802"], [1.0, "#ff0000"]],
+				limitMax: true,     // If false, max value increases automatically if value > maxValue
+				limitMin: true,     // If true, the min value of the gauge will be fixed
+				// colorStart: '#6FADCF',   // Colors
+				// colorStop: '#59C5DA',    // just experiment with them
+				strokeColor: '#E0E0E0',  // to see which ones work best for you
+				staticZones: [
+					{ strokeStyle: "#F03E3E", min: -100, max: -50 }, // Red from 100 to 130
+					{ strokeStyle: "#ff920b", min: -50, max: 0 }, // Orange
+					{ strokeStyle: "#FFDD00", min: 0, max: 50 }, // Yellow
+					{ strokeStyle: "#34d60b", min: 50, max: 100 }, // Green
+				],
+				generateGradient: true,
+				highDpiSupport: true     // High resolution support
+			};
+			var target = this.$el
+			this.gauge = new Gauge(target).setOptions(gaugeOptions);
+			this.gauge.minValue = -100;
+			this.gauge.maxValue = 100; // set max gauge value
+			this.gauge.set(this.value);
+			this.gauge.animationSpeed = 10000; // set animation speed (32 is default value)
+		})
+	},
+	template: '<canvas class="gauge-canvas"></canvas>'
 })
 Vue.component("pagination", {
 	props: ["value"],
