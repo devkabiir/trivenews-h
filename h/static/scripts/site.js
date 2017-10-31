@@ -25,6 +25,7 @@ const ShareWidgetController = require('./controllers/share-widget-controller');
 const SignupFormController = require('./controllers/signup-form-controller');
 const TooltipController = require('./controllers/tooltip-controller');
 const upgradeElements = require('./base/upgrade-elements');
+window.Vue = require('./lib/vue');
 
 const VueData = require('./pages/documents_list/list.js');
 

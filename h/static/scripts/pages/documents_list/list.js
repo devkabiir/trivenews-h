@@ -2,6 +2,8 @@ console.log("FFFFFFFFFFFFFFFFFFFFFFFFFF")
 // var $ = require('jquery')
 window.addEventListener('load', function () {
 	console.log("Loaded")
+	// if (!document.getElementById("#app-v"))
+	// 	return;
 	window.vm = new Vue({
 		el: '#app-v',
 		data: {
@@ -12,12 +14,12 @@ window.addEventListener('load', function () {
 			loadingScored: true,
 			unscoredPaginationData: {
 				currentPage: 1,
-				perPage: 5,
+				perPage: 1,
 				total: 0
 			},
 			scoredPaginationData: {
 				currentPage: 1,
-				perPage: 5,
+				perPage: 1,
 				total: 0
 			}
 		},
@@ -40,7 +42,7 @@ window.addEventListener('load', function () {
 				window.$.get("/api/documents", {
 					scored_only: "true",
 					perPage: this.scoredPaginationData.perPage,
-					page:this.scoredPaginationData.currentPage,
+					page: this.scoredPaginationData.currentPage,
 					cachebust: (new Date().getTime())
 				}, function (data) {
 					self.scored = data.documents;
@@ -87,6 +89,9 @@ Vue.component("document", {
 		},
 		docClass: function () {
 			return { 'expanded': this.showDetails }
+		},
+		truthinessText: function () {
+			return getTruthinessText(this.doc.avg_score);
 		}
 	},
 	methods: {
@@ -113,7 +118,7 @@ Vue.component("document", {
 	},
 	template:
 	'<div class="doc-container" v-on:click="toggleShowDetails" v-bind:class="docClass">' +
-	'    <div class="annotated-doc doc-summary">' +
+	'   <div class="annotated-doc doc-summary">' +
 	'        <div class="page-title">' +
 	'            <span>{{doc.title}}</span>' +
 	'            <div class="domain">' +
@@ -130,12 +135,16 @@ Vue.component("document", {
 	'    <div class="doc-details-container" v-if="showDetails">' +
 	'        <div class="annotations-container">' +
 	'            <p v-if="loadingAnnotations" class="rubberBand">Loading</p>' +
-	'            <annotation :annotation="annotation" v-for="annotation in annotations"  :key="annotation.id"></annotation>' +
+	'            <annotation :annotation="annotation" v-for="annotation in annotations" :key="annotation.id"></annotation>' +
 	'        </div>' +
 	'        <div class="doc-details">' +
 	'            <p class="doc-url-header">URL</p>' +
 	'            <p class="doc-url">' +
 	'                <a :href="doc.web_uri" target="_blank">{{doc.web_uri}}</a>' +
+	'            </p>' +
+	'            <p class="doc-url-header">Truth-O-Meter</p>' +
+	'            <p class="doc-url">' +
+	'                {{truthinessText}}' +
 	'            </p>' +
 	'        </div>' +
 	'    </div>' +
@@ -178,14 +187,40 @@ Vue.component("document", {
 			},
 			template:
 			'<div class="annotation-container" v-on:click="annotationClicked">' +
-			'<p class="annotation-text" v-html="annotation._text_rendered"></p>' +
-			'<p class="quote"></p>' +
-			'<p class="references-header">References</p>' +
-			'<p class="reference" v-for="source in annotation.sources">{{source}}</p>' +
-			'<p class="truthiness-score" v-bind:style="truthinessStyle">{{annotation.truthiness}}</p>' +
+			'	<div class="annotation-username">{{annotation.username}}</div>' +
+			'	<p class="quote">{{annotation.quote}}</p>' +
+			'	<p class="annotation-text" v-html="annotation._text_rendered"></p>' +
+			'	<p class="references-header">References</p>' +
+			'	<div class="reference" v-for="source in annotation.sources">' +
+			'		<link-display :url="source"></link-display>' +
+			'   </div > ' +
+			'	<p class="truthiness-header">Truth-O-Meter</p>'+
+			'	<p class="truthiness-score" v-bind:style="truthinessStyle">{{annotation.truthiness}}</p>' +
 			'</div>'
 		}
 	}
+})
+Vue.component("link-display", {
+	props: ["url"],
+	computed: {
+		fullHref: function () {
+			if (!this.url)
+				return "";
+			if (this.url.slice(0, 4) !== "http")
+				return "http://" + this.url;
+			return this.url;
+		},
+		prettyLinkText: function () {
+			if (!this.url)
+				return "";
+			if (this.url.slice(0, 8).toLowerCase() == "https://")
+				return this.url.slice(8);
+			if (this.url.slice(0, 7).toLowerCase() == "http://")
+				return this.url.slice(7);
+			return this.url;
+		}
+	},
+	template: '<a :href="fullHref">{{prettyLinkText}}</a>'
 })
 Vue.component("pagination", {
 	props: ["value"],
@@ -199,6 +234,12 @@ Vue.component("pagination", {
 			if (this.numberOfPages < 1)
 				return []
 
+		},
+		previousButtonStyle: function () {
+			return { visibility: this.value.currentPage == 1 ? "hidden" : "initial" }
+		},
+		nextButtonStyle: function () {
+			return { visibility: this.value.currentPage < this.numberOfPages ? "initial" : "hidden" }
 		}
 	},
 	methods: {
@@ -215,9 +256,10 @@ Vue.component("pagination", {
 	},
 	template:
 	'<div class="pagination">' +
-	'	<div class="previous page-button" v-if="value.currentPage != 1" v-on:click="goToPreviousPage">&lt;</div>' +
-	'	<div class="">{{value.currentPage}} of {{numberOfPages}}</div>' +
-	'	<div class="next page-button" v-if="value.currentPage < numberOfPages" v-on:click="goToNextPage">&gt;</div>' +
+	'	<div class="previous page-button" :style="previousButtonStyle" v-on:click="goToPreviousPage">&lt;</div>' +
+	'	<div class="" v-if="numberOfPages">Page {{value.currentPage}} of {{numberOfPages}}</div>' +
+	'	<div class="" v-if="!numberOfPages">Nothing in this list</div>' +
+	'	<div class="next page-button" :style="nextButtonStyle" v-on:click="goToNextPage">&gt;</div>' +
 	'</div>'
 })
 
@@ -231,4 +273,15 @@ function getScoreColor(score) {
 	if (score < 50)
 		return "#FFDD00"
 	return "#57de36"
+}
+function getTruthinessText(score) {
+	if (!score)
+		score = 0;
+	if (score < -50)
+		return "BLATANT LIE!"
+	if (score < 0)
+		return "Probably False"
+	if (score < 50)
+		return "Maybe"
+	return "Probably True"
 }

@@ -28,6 +28,7 @@ from h.presenters import AnnotationJSONLDPresenter
 from h.resources import AnnotationResource
 from h.schemas.annotation import CreateAnnotationSchema, UpdateAnnotationSchema
 from h.views.api_config import api_config, AngularRouteTemplater
+import jinja2
 
 _ = i18n.TranslationStringFactory(__package__)
 
@@ -172,9 +173,17 @@ def getAnnotations(context, request):
     if not data:
         return []
     annotations = []
+    
     for annotation in data:
+        quote = "";
+        for selector in annotation.target_selectors:
+            if 'exact' in selector:
+                quote = jinja2.escape(selector['exact'])
+                break;
         annotations.append({
             'id':annotation.id,
+            'username': annotation.userid.lstrip("acct:").split("@")[0],
+            'quote':quote,
             'truthiness':annotation.truthiness,
             'sources': annotation.sources,
             '_text_rendered': annotation._text_rendered

@@ -5,27 +5,27 @@
 .docs-list-page {
     display: flex;
     justify-content: center;
-    .pagination{
+    .pagination {
         text-align: center;
-        padding:5px;
-        >div{
-            color:black;
-            display:inline-block;
+        padding: 5px;
+        >div {
+            color: black;
+            display: inline-block;
             user-select: none;
-            margin:3px;
-            min-width:25px;
-            min-height:25px;
-            line-height:25px;
+            margin: 3px;
+            min-width: 25px;
+            min-height: 25px;
+            line-height: 25px;
         }
-        >.page-button{
-            cursor:pointer;
-            border-radius:2px;
-            background:gainsboro;
+        >.page-button {
+            cursor: pointer;
+            border-radius: 2px;
+            background: gainsboro;
             text-align: center;
-            font-weight:bold;
+            font-weight: bold;
             transition: .1s background;
-            &:hover{
-                background:silver;
+            &:hover {
+                background: silver;
             }
         }
     }
@@ -34,6 +34,13 @@
         flex-grow: 1;
         width: 100%;
         max-width: 1200px;
+        .references-header{
+            margin-bottom:0;
+        }
+        .annotation-username {
+            color: #202020;
+            font-weight: bold;
+        }
         .needs-annotation-container,
         .already-annotated-container {
             display: block;
@@ -86,36 +93,36 @@
                     float: right;
                 }
             }
-            .doc-url-header{
-                margin-top:0;
-                font-size:15px;
+            .doc-url-header {
+                margin-top: 0;
+                font-size: 15px;
                 margin-bottom: 0px;
                 color: #3f3f3f;
                 font-weight: bold;
             }
-            .doc-url{
-                margin-top:3px;
+            .doc-url {
+                margin-top: 3px;
                 overflow: hidden;
                 word-wrap: break-word;
-                a{
+                a {
                     color: #3f3f3f;
                 }
             }
-            .doc-details-container{
-                display:flex;
-                padding:5px;
-                padding-bottom:0;
+            .doc-details-container {
+                display: flex;
+                padding: 5px;
+                padding-bottom: 0;
                 background: whitesmoke;
             }
-            .doc-details{
-                width:33%;
-                padding-left:5px;
+            .doc-details {
+                width: 33%;
+                padding-left: 5px;
             }
-            .annotations-container{
-                max-height:400px;
-                overflow:auto;
-                width:66%;
-                padding-right:0px;
+            .annotations-container {
+                max-height: 600px;
+                overflow: auto;
+                width: 66%;
+                padding-right: 0px;
             }
             .annotation-container {
                 font-size: 13px;
@@ -138,14 +145,17 @@
                     border-left: 3px solid #dbdbdb;
                     margin-bottom: 10px;
                 }
+                .truthiness-header{
+                    margin-bottom:5px;
+                }
                 .truthiness-score {
                     margin-bottom: 0;
-                    margin-top: 8px;
+                    margin-top: 0px;
                     font-weight: bold;
                     display: inline-block;
                     padding: 3px 5px;
-                    min-width:25px;
-                    text-align:center;
+                    min-width: 25px;
+                    text-align: center;
                     border-radius: 2px;
                 }
             }
@@ -154,35 +164,29 @@
 }
 
 @keyframes rubberBand {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  30% {
-    transform: scale3d(1.25, 0.75, 1);
-  }
-
-  40% {
-    transform: scale3d(0.75, 1.25, 1);
-  }
-
-  50% {
-    transform: scale3d(1.15, 0.85, 1);
-  }
-
-  65% {
-    transform: scale3d(.95, 1.05, 1);
-  }
-
-  75% {
-    transform: scale3d(1.05, .95, 1);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
+    from {
+        transform: scale3d(1, 1, 1);
+    }
+    30% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+    40% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+    50% {
+        transform: scale3d(1.15, 0.85, 1);
+    }
+    65% {
+        transform: scale3d(.95, 1.05, 1);
+    }
+    75% {
+        transform: scale3d(1.05, .95, 1);
+    }
+    to {
+        transform: scale3d(1, 1, 1);
+    }
 }
 
 .rubberBand {
-  animation-name: rubberBand;
+    animation-name: rubberBand;
 }
