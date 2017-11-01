@@ -114,6 +114,26 @@ def fetch_ordered_annotations(session, ids, query_processor=None):
     anns = sorted(query, key=lambda a: ordering.get(a.id))
     return anns
 
+def create_document(request, data):
+    created = datetime.utcnow()
+    updated = datetime.utcnow()
+
+    existing = request.db.query(models.Document).filter(models.Document.web_uri == data[u'web_uri'])
+    if existing:
+        return
+    
+    document = models.Document(
+        created=created,
+        updated=updated,
+        title=data[u'title'],
+        web_uri=data[u'web_uri'],
+        num_annotations=0,
+        avg_score=0
+    )
+    request.db.add(document)
+    request.db.flush()
+    return document
+
 
 def create_annotation(request, data, group_service):
     """
@@ -156,6 +176,7 @@ def create_annotation(request, data, group_service):
     # a groupfinder we will allow writing this annotation without any
     # further checks.
     group = group_service.find(data['groupid'])
+    print request.has_permission('write', context=group)
     if group is None or not request.has_permission('write', context=group):
         raise schemas.ValidationError('group: ' +
                                       _('You may not create annotations '

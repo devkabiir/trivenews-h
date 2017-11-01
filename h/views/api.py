@@ -64,8 +64,9 @@ def index(context, request):
     }
 
 @api_config(route_name='api.documents',
+            request_method='GET',
             description='List of documents')
-def documents(context, request):
+def documents(request):
     if "unscored_only" in request.params:
         data = storage.fetch_unscored_documents(request.db, int(request.params['page']), int(request.params['perPage']))
         numDocumentsResults = storage.fetch_unscored_documents_count(request.db)
@@ -89,6 +90,35 @@ def documents(context, request):
         'documents': documents,
         'count': numDocuments
     }
+
+# route_name='api.annotations',
+#             request_method='POST',
+#             effective_principals=security.Authenticated,
+#             link_name='annotation.create',
+#             description='Create an annotation'
+
+@api_config(route_name='api.documents',
+            request_method='POST',
+            # permission='create',
+            link_name='document.create',
+            description='create a document')
+def create_document(context, request):
+
+    document = storage.create_document(request, request.json_body)
+    group_service = request.find_service(IGroupService)
+    group = group_service.find("__world__")
+    print request.has_permission('write',context=group)
+
+    if not request.has_permission('write',context=group):
+        request.response.status = 401
+        return {'error':'not-logged-in'}
+    else:
+        print "YOU ARE AUTHORIZED"
+
+    if not document:
+        return {'already_created':True}
+
+    return {'success':True}
 
 @api_config(route_name='api.links',
             link_name='links',
@@ -197,6 +227,8 @@ def getAnnotations(context, request):
             description='Create an annotation')
 def create(request):
     """Create an annotation from the POST payload."""
+
+
     schema = CreateAnnotationSchema(request)
     appstruct = schema.validate(_json_payload(request))
     group_service = request.find_service(IGroupService)
