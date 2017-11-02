@@ -29,6 +29,10 @@ from h.resources import AnnotationResource
 from h.schemas.annotation import CreateAnnotationSchema, UpdateAnnotationSchema
 from h.views.api_config import api_config, AngularRouteTemplater
 import jinja2
+from h import models, schemas
+from h.db import types
+from h.models.document import update_document_metadata
+
 
 _ = i18n.TranslationStringFactory(__package__)
 
@@ -104,20 +108,19 @@ def documents(request):
             description='create a document')
 def create_document(context, request):
 
-    document = storage.create_document(request, request.json_body)
+    existing = request.db.query(models.Document).filter(models.Document.web_uri == request.json_body[u'web_uri']).first()
+    print existing
+    if existing:
+        return {'already_created':True}
+
     group_service = request.find_service(IGroupService)
     group = group_service.find("__world__")
-    print request.has_permission('write',context=group)
 
     if not request.has_permission('write',context=group):
         request.response.status = 401
         return {'error':'not-logged-in'}
-    else:
-        print "YOU ARE AUTHORIZED"
 
-    if not document:
-        return {'already_created':True}
-
+    document = storage.create_document(request, request.json_body)
     return {'success':True}
 
 @api_config(route_name='api.links',

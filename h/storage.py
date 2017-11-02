@@ -117,10 +117,6 @@ def fetch_ordered_annotations(session, ids, query_processor=None):
 def create_document(request, data):
     created = datetime.utcnow()
     updated = datetime.utcnow()
-
-    existing = request.db.query(models.Document).filter(models.Document.web_uri == data[u'web_uri'])
-    if existing:
-        return
     
     document = models.Document(
         created=created,
