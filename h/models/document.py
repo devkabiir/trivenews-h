@@ -223,7 +223,7 @@ class DocumentURI(Base, mixins.Timestamps):
     @event.listens_for(Annotation, "after_delete")
     def annotation_inserted(mapper, connection, annotation):
         #update num_annotations and average score every time somebody inserts, deletes, or updates an annotation
-        query = text('UPDATE document SET num_annotations=(SELECT COUNT(*) FROM annotation where document_id= :document_id), avg_score=(SELECT AVG(truthiness) FROM "annotation" WHERE document_id= :document_id) WHERE id= :document_id', bindparams=[bindparam("document_id",value=annotation.document_id, type_=sa.Integer)])
+        query = text('UPDATE document SET num_annotations=(SELECT COUNT(*) FROM annotation where document_id= :document_id AND deleted <> TRUE), avg_score=(SELECT AVG(truthiness) FROM "annotation" WHERE document_id= :document_id AND deleted <> TRUE) WHERE id= :document_id', bindparams=[bindparam("document_id",value=annotation.document_id, type_=sa.Integer)])
         print "query is "
         print query
         results = connection.execute(query)

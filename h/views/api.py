@@ -183,6 +183,7 @@ def search(request):
             description='Fetch a list of annotations')
 def showLista(request):
     """Return annotations for the page"""
+    print('working..........')
     linksToFind = request.json_body[u'links']
     for link in linksToFind:
         if not isinstance(link, basestring):
@@ -190,6 +191,8 @@ def showLista(request):
             return {"error":"invalid data. All links must be strings"}
         
     data = storage.fetch_annotation_scores_for_links(request.db, linksToFind)
+    print "annotations................"
+    print data
     links = {}
     for row in data:
         links[row[0]] = float(row[1])

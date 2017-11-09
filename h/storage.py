@@ -39,9 +39,7 @@ def fetch_annotation_scores_for_links(db, linksToFind):
         boundparams.append(bindparam(str(i),value=link, type_=sa.UnicodeText))
         i += 1
 
-    query = text('SELECT target_uri, AVG(truthiness) as avgtruthiness FROM "annotation" WHERE "target_uri" IN (' + ','.join(placeholders) + ')  GROUP BY "target_uri"', bindparams=boundparams)
-    print "query is "
-    print query
+    query = text('SELECT web_uri, avg_score FROM "document" WHERE "web_uri" IN (' + ','.join(placeholders) + ')', bindparams=boundparams)
     results = db.execute(query)
     return results
 
