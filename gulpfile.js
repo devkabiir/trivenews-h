@@ -273,7 +273,7 @@ gulp.task('lint', function () {
   // Adapted from usage example at https://www.npmjs.com/package/gulp-eslint
   // `gulp-eslint` is loaded lazily so that it is not required during Docker image builds
   var eslint = require('gulp-eslint');
-  return gulp.src(['h/static/scripts/**/*.js'])
+  return gulp.src(['h/static/scripts/**/*.js','!h/static/scripts/lib/*.js'])
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failAfterError());
