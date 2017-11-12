@@ -22,11 +22,13 @@ class TestAnnotationSearchIndexPresenter(object):
             target_uri='http://example.com',
             target_uri_normalized='http://example.com/normalized',
             text='It is magical!',
+            truthiness=5,
             tags=['magic'],
             groupid='__world__',
             shared=True,
             target_selectors=[{'TestSelector': 'foobar'}],
             references=['referenced-id-1', 'referenced-id-2'],
+            sources=['http://giraffe.com', 'http://toad.net'],
             thread_ids=['thread-id-1', 'thread-id-2'],
             extra={'extra-1': 'foo', 'extra-2': 'bar'})
         DocumentSearchIndexPresenter.return_value.asdict.return_value = {'foo': 'bar'}
@@ -41,6 +43,7 @@ class TestAnnotationSearchIndexPresenter(object):
             'user_raw': 'acct:luke@hypothes.is',
             'uri': 'http://example.com',
             'text': 'It is magical!',
+            'truthiness': 5,
             'tags': ['magic'],
             'tags_raw': ['magic'],
             'group': '__world__',
@@ -50,6 +53,7 @@ class TestAnnotationSearchIndexPresenter(object):
                         'selector': [{'TestSelector': 'foobar'}]}],
             'document': {'foo': 'bar'},
             'references': ['referenced-id-1', 'referenced-id-2'],
+            'sources': ['http://giraffe.com', 'http://toad.net'],
             'thread_ids': ['thread-id-1', 'thread-id-2'],
         }
 
