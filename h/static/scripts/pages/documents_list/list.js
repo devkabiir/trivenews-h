@@ -124,7 +124,7 @@ Vue.component("document", {
 	'                <a>{{domain}}</a>' +
 	'            </div>' +
 	'        </div>' +
-	'        <div class="avg-score-container">' +
+	'        <div class="avg-score-container" v-if="!unscored">' +
 	'            <avg-score v-bind:score="doc.avg_score"></avg-score>' +
 	'        </div>' +
 	'        <div class="num-annotations-container">' +

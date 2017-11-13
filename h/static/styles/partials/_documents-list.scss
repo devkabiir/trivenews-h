@@ -51,6 +51,12 @@
         }
         .needs-annotation-container,
         .already-annotated-container {
+            &:last-child{
+                margin-left:5px;
+            }
+            h2{
+                padding-left:8px;
+            }
             display: block;
             flex-grow: 1;
             flex-basis: 0; // flex-direction: column;

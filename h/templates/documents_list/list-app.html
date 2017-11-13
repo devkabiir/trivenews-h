@@ -2,7 +2,7 @@
 <div id="app-v" v-cloak class="docs-list-page">
 	<div class="results-container">
 		<div class="needs-annotation-container">
-			<h2>Need Scoring</h2>
+			<h2>Need More Scores</h2>
 			<document v-for="doc in unscored" :unscored="true" :doc="doc" :key="doc.id"></document>
 			<pagination :value="unscoredPaginationData" @input="unscoredPaginationChanged"></pagination>
 		</div>
