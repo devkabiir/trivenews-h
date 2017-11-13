@@ -190,7 +190,7 @@ Vue.component("document", {
 			template:
 			'<div class="annotation-container" v-on:click="annotationClicked">' +
 			'	<div class="annotation-username">{{annotation.username}}</div>' +
-			'	<p class="quote">{{annotation.quote}}</p>' +
+			'	<p class="quote" v-html="annotation.quote"></p>' +
 			'	<p class="annotation-text" v-html="annotation._text_rendered"></p>' +
 			'	<p class="references-header">References</p>' +
 			'	<div class="reference" v-for="source in annotation.sources">' +
