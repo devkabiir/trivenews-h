@@ -51,11 +51,13 @@ class TestAnnotationJSONPresenter(object):
                         userid='acct:luke',
                         target_uri='http://example.com',
                         text='It is magical!',
+                        truthiness=5,
                         tags=['magic'],
                         groupid='__world__',
                         shared=True,
                         target_selectors=[{'TestSelector': 'foobar'}],
                         references=['referenced-id-1', 'referenced-id-2'],
+                        sources=['http://giraffe.com', 'http://toad.net'],
                         extra={'extra-1': 'foo', 'extra-2': 'bar'})
         resource = AnnotationResource(ann, group_service, fake_links_service)
 
@@ -67,6 +69,7 @@ class TestAnnotationJSONPresenter(object):
                     'user': 'acct:luke',
                     'uri': 'http://example.com',
                     'text': 'It is magical!',
+                    'truthiness': 5,
                     'tags': ['magic'],
                     'group': '__world__',
                     'permissions': {'read': ['group:__world__'],
@@ -79,6 +82,7 @@ class TestAnnotationJSONPresenter(object):
                     'links': {'giraffe': 'http://giraffe.com',
                               'toad': 'http://toad.net'},
                     'references': ['referenced-id-1', 'referenced-id-2'],
+                    'sources': ['http://giraffe.com', 'http://toad.net'],
                     'extra-1': 'foo',
                     'extra-2': 'bar'}
 

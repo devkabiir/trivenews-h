@@ -25,6 +25,8 @@ class TestIndex(object):
         pyramid_config.add_route('api.annotations', '/dummy/annotations')
         pyramid_config.add_route('api.annotation', '/dummy/annotations/:id')
         pyramid_config.add_route('api.links', '/dummy/links')
+        pyramid_config.add_route('api.documents', '/dummy/documents')
+        pyramid_config.add_route('api.annotationsforlinks', '/dummy/annotations-for-links')
 
         result = views.index(testing.DummyResource(), pyramid_request)
 

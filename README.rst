@@ -1,15 +1,12 @@
 h
 =
 
-.. image:: https://travis-ci.org/hypothesis/h.svg?branch=master
-   :target: https://travis-ci.org/hypothesis/h
+.. image:: https://travis-ci.org/trivenews/h.svg?branch=master
+   :target: https://travis-ci.org/trivenews/h
    :alt: Build Status
-.. image:: https://codecov.io/github/hypothesis/h/coverage.svg?branch=master
-   :target: https://codecov.io/github/hypothesis/h?branch=master
+.. image:: https://codecov.io/github/trivenews/h/coverage.svg?branch=master
+   :target: https://codecov.io/github/trivenews/h?branch=master
    :alt: Code Coverage
-.. image:: https://img.shields.io/badge/IRC-%23hypothes.is-blue.svg
-   :target: `#hypothes.is`_
-   :alt: #hypothes.is IRC channel
 .. image:: https://img.shields.io/badge/license-BSD-blue.svg
    :target: https://github.com/hypothesis/h/blob/master/LICENSE
    :alt: License badge
