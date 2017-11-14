@@ -49,9 +49,11 @@
 // The result container holds all of the main content
 // for the page and is in charge of layout
 .search-result-container {
+    background:white;
     display: flex;
     font-size: $normal-font-size;
-    margin-top: 40px;
+    margin-top: 20px;
+    padding-top:20px;
     color: $grey-6; // Align the left and right edges of the search result list with the left and
     // right edges of the navbar content.
     padding-left: $content-padding-left;

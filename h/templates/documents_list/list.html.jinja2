@@ -1,5 +1,24 @@
 {% extends "h:templates/layouts/base.html.jinja2" %}
 
+{% block header %}
+<div class="top-menu">
+  <div class="top-menu-inner">
+    <div class="buttons-left">
+      <img src="/assets/images/logo.png" class="logo-left" />
+      <div class="links">
+        <a href="https://trive.news/" class="bold" target="_blank">Join ICO</a>
+        <a href="https://chrome.google.com/webstore/detail/trive-news-demo-browser-c/pfodgckfooconabjbjaamjcpnanchjgh" target="_blank">Install Plugin</a>
+        <a href="/search">Search</a>
+      </div>
+    </div>
+    <div class="buttons-right">
+      <a href="/login">Log In</a>
+      <a href="/signup">Sign Up</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
     {% include 'list-app.html' %}
 {% endblock %}

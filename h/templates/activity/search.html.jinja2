@@ -369,6 +369,10 @@
 {% endmacro %}
 
 {% block header %}
+  <script>
+  console.log("BOBOBO")
+    document.body.className += " white-bg";
+  </script>
   {{ panel('navbar', search_results, opts) }}
 {% endblock %}
 
