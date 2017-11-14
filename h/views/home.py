@@ -27,7 +27,7 @@ def index_redirect(context, request):
     except KeyError:
         # When the redirect URL isn't explicitly configured, we send people to
         # the main activity stream.
-        redirect = request.route_url('activity.search')
+        redirect = request.route_url('document.list')
 
     if request.user is not None:
         redirect = request.route_url('activity.user_search',
