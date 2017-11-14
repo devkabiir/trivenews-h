@@ -77,8 +77,6 @@
     flex-grow: 1;
     width: 100%;
     max-width: 1200px;
-    background:white;
-    box-shadow: 0 0 8px rgba(0,0,0,.5);
     .references-header {
       margin-bottom: 0;
     }
@@ -88,7 +86,8 @@
     }
     .needs-annotation-container,
     .already-annotated-container {
-
+        background:white;
+        box-shadow: 0 0 8px rgba(0,0,0,.5);
       &:last-child {
         margin-left: 5px;
       }
