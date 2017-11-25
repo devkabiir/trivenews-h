@@ -21,7 +21,7 @@ layers:
   test:
     build:
       - pip install tox
-    start: cd /var/lib/hypothesis && tox
+    start: /var/lib/hypothesis/test.sh
     wait-for: db:5432
 
 build:
