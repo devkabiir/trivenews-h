@@ -1,0 +1,27 @@
+name: trive
+
+layers:
+  base:
+    from: hypothesis/hypothesis
+  app:
+    context:
+      - .
+    build:
+      - mv /app /var/lib/hypothesis
+      - cd /var/lib/hypothesis
+      - pip install --no-cache-dir -r requirements.txt
+      - npm install --production
+      - NODE_ENV=production node_modules/.bin/gulp build
+      - npm cache clean
+    prepare: ls
+    start: init-env supervisord -c conf/supervisord.conf
+    wait-for: db:5432
+  test:
+    build:
+      - pip install tox
+    start: tox
+    wait-for: db:5432
+
+build:
+  branches:
+    - master
