@@ -9,6 +9,11 @@ layers:
     context:
       - .
     build:
+      - cd /
+      - ls
+      - ls /app
+      - ls /var/lib/hypothesis
+      - rm -rf /var/lib/hypothesis
       - mv /app /var/lib/hypothesis
       - cd /var/lib/hypothesis
       - pip install --no-cache-dir -r requirements.txt
