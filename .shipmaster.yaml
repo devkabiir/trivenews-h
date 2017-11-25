@@ -3,6 +3,8 @@ name: trive
 layers:
   base:
     from: hypothesis/base
+    context:
+      - requirements.txt
   app:
     context:
       - .
