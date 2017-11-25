@@ -2,7 +2,7 @@ name: trive
 
 layers:
   base:
-    from: hypothesis/hypothesis
+    from: hypothesis/base
   app:
     context:
       - .
