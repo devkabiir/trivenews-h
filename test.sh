@@ -1,1 +1,1 @@
-tox
+cd /var/lib/hypothesis && tox
