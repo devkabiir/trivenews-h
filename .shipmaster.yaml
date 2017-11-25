@@ -13,7 +13,7 @@ layers:
       - cd /var/lib/hypothesis
       - pip install --no-cache-dir -r requirements.txt
       - npm install --production
-      - NODE_ENV=production node_modules/.bin/gulp build --no-color
+      - NODE_ENV=production node_modules/.bin/gulp build --no-color -L
       - npm cache clean
     prepare: ls
     start: init-env supervisord -c conf/supervisord.conf
