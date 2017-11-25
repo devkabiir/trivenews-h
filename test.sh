@@ -1,1 +1,1 @@
-cd /var/lib/hypothesis && tox
+cd /var/lib/hypothesis && pytest tests/h/

@@ -20,7 +20,7 @@ layers:
     wait-for: db:5432
   test:
     build:
-      - pip install tox
+      - pip install pytest factory-boy
     start: /var/lib/hypothesis/test.sh
     wait-for: db:5432
 
