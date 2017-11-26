@@ -20,7 +20,8 @@ layers:
     wait-for: db:5432
   test:
     build:
-      - pip install pytest factory-boy mock
+      # hypothesis below is a testing library, not h
+      - pip install pytest factory-boy mock hypothesis
     start: /var/lib/hypothesis/test.sh
     wait-for: db:5432
 
